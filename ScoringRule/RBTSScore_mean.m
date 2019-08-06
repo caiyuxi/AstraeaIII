@@ -1,8 +1,8 @@
 function u = RBTSScore_mean(x,y)
-%RBTSSCORE based on the original proposal
+%RBTSSCORE instead of reference and peer agent, use mean values (excluding the current agent)
 %   
     for i = 1:length(x)
-        yRef= ((prod(y) /y(i))) ^ (1/(length(y) - 1));
+        yRef= ((prod(y) / y(i))) ^ (1/(length(y) - 1));
         xFreq = (sum(x) - x(i)) / (length(x) - 1);
         if xFreq < 0.5
             xRef = 0;

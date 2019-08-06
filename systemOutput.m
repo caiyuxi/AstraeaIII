@@ -24,7 +24,7 @@ function [result,majOutput,scoreOutput,tAverage,fAverage] = systemOutput(x,score
         meanMajScore = mean(majScore);
         maxMinScore = max(score(x==(1-majOutput)));
         numMajScoreOverMean = sum(majScore>meanMajScore);
-        minMajScoreOverMean = majScore(majScore>meanMajScore);
+        minMajScoreOverMean = unique(majScore(majScore>meanMajScore));
     
         if majOutput == scoreOutput
             result = majOutput;
