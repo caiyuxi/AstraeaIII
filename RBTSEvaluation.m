@@ -30,7 +30,7 @@ clearvars;
 x1=zeros(1,100);
 x1(1,91:100) = 1;
 y=zeros(1,100);
-y(:) = 0.95;
+y(:) = 0.9;
 
 % shuffle the report array
 idx = randperm(100);
@@ -44,9 +44,49 @@ RBTSScore_mean = RBTSScore_mean(x,y);
                             = systemOutput(x,RBTSScore_mean);
 [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
                             = systemOutput(x,RBTSScore);
-                        
+        
+%% case 4: n=100, 100 random cases, find number of agreement among majority, RBTS and improved RBTS
+clearvars;
+AllAgreeCount = 0;
+RBTSAgreeCount = 0;
+RBTSMeanMajorityCount = 0;
+RBTSMajorityCount = 0;
+for i = 1:100
+    [x,y] =randomAgents(100);
+    clear RBTSScore;
+    clear RBTSScore_mean;
+    clear majOutput;
+    clear RBTSMeanScoreOutput;
+    clear RBTSScoreOutput;
+    
+    RBTSScore = RBTSScore(x,y);
+    RBTSScore_mean = RBTSScore_mean(x,y);
 
+    [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
+                                = systemOutput(x,RBTSScore_mean);
+    [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
+                                = systemOutput(x,RBTSScore);
+    if (majOutput == RBTSScoreOutput && majOutput == RBTSMeanScoreOutput) 
+        AllAgreeCount = AllAgreeCount+1;
+    end
+    if (majOutput == RBTSScoreOutput) 
+        RBTSMajorityCount = RBTSMajorityCount+1;
+    end
+    if (majOutput == RBTSMeanScoreOutput) 
+        RBTSMeanMajorityCount = RBTSMeanMajorityCount+1;
+    end
+    if (RBTSScoreOutput == RBTSMeanScoreOutput) 
+        RBTSAgreeCount = RBTSAgreeCount+1;
+    end
+end
+% result:
+% run1: AllAgreeCount = 57, RBTSMajorityCount=57, RBTSMeanMajorityCount =
+% 95, RBTSAgreeCount = 60
+% run2: AllAgreeCount = 65, RBTSMajorityCount=65, RBTSMeanMajorityCount =
+% 92, RBTSAgreeCount = 68
+% run2: AllAgreeCount = 62, RBTSMajorityCount=62, RBTSMeanMajorityCount =
+% 94, RBTSAgreeCount = 65
 %%                        
 % conclusion: although using mean instead of reference and peer agents 
 % removes randomness from the protocol. The scores for agents reporting the 
-% same report are the same. It also does not affect the oracle output. 
+% same report are the same. 
