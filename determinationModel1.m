@@ -1,3 +1,13 @@
+%% This function follows the rule that
+ %  - majority side = the side with higher average RBTS score 
+ %      -> output the agreed side
+ %  - majority side != the side with higher average RBTS score 
+ %      - majority of majority have a score higher than the majority
+ %      average score
+ %      - minimum score of the majority of majority is higher than the
+ %      maximum score of the opposite side
+ %          -> output the majority side
+ %          -> else output the RBTS score side
 function [result,majOutput,scoreOutput,tAverage,fAverage] = systemOutput(x,score)
     majOutput = -1;
     scoreOutput = -1;

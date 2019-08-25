@@ -15,8 +15,14 @@ function plotWithDiffColor(x,y,bar)
     if bar == 1
         colormap(colors);
         cbh = colorbar; %Create Colorbar
-        cbh.Ticks = linspace(1/(2*mx), 1-1/(2*mx), mx) ; %Create 8 ticks from zero to 1
-        cbh.TickLabels = 1:mx ;
+        if mx <= 10
+            cbh.Ticks = linspace(1/(2*mx), 1-1/(2*mx), mx) ; %Create 8 ticks from zero to 1
+            cbh.TickLabels = 1:mx ;
+        else
+            t=get(cbh,'Limits');
+            set(cbh,'Ticks',linspace(t(1),t(2),4));
+            set(cbh,'TickLabels',linspace(1,mx,4));
+        end
         %colorbar('YTick', linspace(1/(2*mx), 1-1/(2*mx), mx), ...
          %   'YTickLabel', 1:mx);
     end

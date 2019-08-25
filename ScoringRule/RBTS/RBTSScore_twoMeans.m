@@ -17,7 +17,7 @@ function u = RBTSScore_twoMeans(x,y)
         yT = 0;
         yF = 0;
         if curSide == 1
-            yT = (prodYT / curPred)) ^ (1/(length(tPred) - 1));
+            yT = (prodYT / curPred) ^ (1/(length(tPred) - 1));
             yF = prodYF^ (1/length(fPred));
         else
             yT = prodYT^ (1/length(tPred));

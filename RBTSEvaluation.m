@@ -86,6 +86,49 @@ end
 % 92, RBTSAgreeCount = 68
 % run2: AllAgreeCount = 62, RBTSMajorityCount=62, RBTSMeanMajorityCount =
 % 94, RBTSAgreeCount = 65
+
+%% case 5: n=100, 100 random cases, but make sures that if xi = 1, yi>=0.5, 
+ % find number of agreement among majority, RBTS and improved RBTS
+clearvars;
+AllAgreeCount = 0;
+RBTSAgreeCount = 0;
+RBTSMeanMajorityCount = 0;
+RBTSMajorityCount = 0;
+for i = 1:100
+    [x,y] =randomAgents2(100);
+    clear RBTSScore;
+    clear RBTSScore_mean;
+    clear majOutput;
+    clear RBTSMeanScoreOutput;
+    clear RBTSScoreOutput;
+    
+    RBTSScore = RBTSScore(x,y);
+    RBTSScore_mean = RBTSScore_mean(x,y);
+
+    [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
+                                = systemOutput(x,RBTSScore_mean);
+    [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
+                                = systemOutput(x,RBTSScore);
+    if (majOutput == RBTSScoreOutput && majOutput == RBTSMeanScoreOutput) 
+        AllAgreeCount = AllAgreeCount+1;
+    end
+    if (majOutput == RBTSScoreOutput) 
+        RBTSMajorityCount = RBTSMajorityCount+1;
+    end
+    if (majOutput == RBTSMeanScoreOutput) 
+        RBTSMeanMajorityCount = RBTSMeanMajorityCount+1;
+    end
+    if (RBTSScoreOutput == RBTSMeanScoreOutput) 
+        RBTSAgreeCount = RBTSAgreeCount+1;
+    end
+end
+% result:
+% run1: AllAgreeCount = 72, RBTSMajorityCount=72, RBTSMeanMajorityCount =
+% 93, RBTSAgreeCount = 76
+% run2: AllAgreeCount = 75, RBTSMajorityCount=75, RBTSMeanMajorityCount =
+% 94, RBTSAgreeCount = 79
+% run2: AllAgreeCount = 68, RBTSMajorityCount=68, RBTSMeanMajorityCount =
+% 91, RBTSAgreeCount = 75
 %%                        
 % conclusion: although using mean instead of reference and peer agents 
 % removes randomness from the protocol. The scores for agents reporting the 
