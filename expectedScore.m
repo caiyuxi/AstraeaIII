@@ -55,3 +55,30 @@ subplot(2,1,2);
 plot(PrTrue,PrTrueAsMajority);
 xlabel("probability of T to be received");
 ylabel("prob. for T to be majority");
+%% adversarial scenario
+clearvars;
+PrT1 = 0.5; % equal probability of two states
+PrStT1 = 0.8; % first state has a higher belief in true signal
+PrStT2 = 0.1;
+n=20;
+PrTrue = 0.7;
+
+p = 0:0.1:1;
+for i = 1:length(p)
+    [expectedScoreSt(i),expectedScoreSf(i), PrTrueAsMajority(i)] = ...
+            AdversarialAttack(PrT1,PrStT1,PrStT2,PrTrue,n, p(i));
+end
+figure;
+subplot(2,1,1);
+hold on;
+plot(p,expectedScoreSt);
+plot(p,expectedScoreSf);
+legend('expected score for True-voting voter', 'expected score for False-voting voter');
+xlabel("ratio of votes controlled by adversary");
+ylabel("u, expected score");
+
+subplot(2,1,2);
+plot(p,PrTrueAsMajority);
+xlabel("ratio of votes controlled by adversary");
+ylabel("probability of T to be majority");
+%%
