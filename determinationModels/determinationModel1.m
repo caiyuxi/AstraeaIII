@@ -8,7 +8,7 @@
  %      maximum score of the opposite side
  %          -> output the majority side
  %          -> else output the RBTS score side
-function [result,majOutput,scoreOutput,tAverage,fAverage] = systemOutput(x,score)
+function [result,majOutput,scoreOutput,tAverage,fAverage] = determinationModel1(x,score)
     majOutput = -1;
     scoreOutput = -1;
     tVote = sum(x==1);
