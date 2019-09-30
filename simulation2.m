@@ -5,9 +5,9 @@ BTSScore_dummy = BTSScore_dummy(x,y);
 RBTSScore = RBTSScore(x,y);
 
 [BTSDummyResult,~,BTSDummyScoreOutput,BTSDummytAverage,BTSDummyfAverage] ...
-                            = systemOutput(x,BTSScore_dummy);
+                            = determinationModel1(x,BTSScore_dummy);
 [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                            = systemOutput(x,RBTSScore);
+                            = determinationModel1(x,RBTSScore);
                         
 %% plotting
 figure('Name','randomAgents, n=3');
@@ -48,9 +48,9 @@ BTSScore_dummy = BTSScore_dummy(x,y);
 RBTSScore = RBTSScore(x,y);
 
 [BTSDummyResult,~,BTSDummyScoreOutput,BTSDummytAverage,BTSDummyfAverage] ...
-                            = systemOutput(x,BTSScore_dummy);
+                            = determinationModel1(x,BTSScore_dummy);
 [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                            = systemOutput(x,RBTSScore);
+                            = determinationModel1(x,RBTSScore);
                         
 %% plotting
 figure('Name','randomAgents, n=3');

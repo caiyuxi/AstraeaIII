@@ -10,13 +10,13 @@ RBTSScore_mean = RBTSScore_mean(x,y);
 RBTSScore_twoMeans = RBTSScore_twoMeans(x,y);
 
 [BTSDummyResult,~,BTSDummyScoreOutput,BTSDummytAverage,BTSDummyfAverage] ...
-                            = systemOutput(x,BTSScore_dummy);
+                            = determinationModel1(x,BTSScore_dummy);
 [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                            = systemOutput(x,RBTSScore);
+                            = determinationModel1(x,RBTSScore);
 [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
-                            = systemOutput(x,RBTSScore_mean);
+                            = determinationModel1(x,RBTSScore_mean);
 [RBTS2MeanResult,majOutput,RBTS2MeanScoreOutput,RBTS2MeantAverage,RBTS2MeanfAverage] ...
-                            = systemOutput(x,RBTSScore_twoMeans);        
+                            = determinationModel1(x,RBTSScore_twoMeans);        
 %% 1 adversary, n = 100
 clearvars;
 x=zeros(1,100);
@@ -32,15 +32,15 @@ RBTSScore_mean = RBTSScore_mean(x,y);
 RBTSScore_twoMeans = RBTSScore_twoMeans(x,y);
     
 [BTSResult,~,BTSScoreOutput,BTStAverage,BTSfAverage] ...
-                            = systemOutput(x,BTSScore);
+                            = determinationModel1(x,BTSScore);
 [BTSDummyResult,~,BTSDummyScoreOutput,BTSDummytAverage,BTSDummyfAverage] ...
-                            = systemOutput(x,BTSScore_dummy);
+                            = determinationModel1(x,BTSScore_dummy);
 [RBTSResult,~,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                            = systemOutput(x,RBTSScore);
+                            = determinationModel1(x,RBTSScore);
 [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
-                            = systemOutput(x,RBTSScore_mean);
+                            = determinationModel1(x,RBTSScore_mean);
 [RBTS2MeanResult,majOutput,RBTS2MeanScoreOutput,RBTS2MeantAverage,RBTS2MeanfAverage] ...
-                            = systemOutput(x,RBTSScore_twoMeans);
+                            = determinationModel1(x,RBTSScore_twoMeans);
 %% plotting
 figure('Name','1 adversary, n=100');
 hold on;
@@ -109,9 +109,9 @@ BTSScore = BTSScore(x,y);
 RBTSScore_mean = RBTSScore_mean(x,y);
 
 [BTSDummyResult,~,BTSDummyScoreOutput,BTSDummytAverage,BTSDummyfAverage] ...
-                            = systemOutput(x,BTSScore_dummy);
+                            = determinationModel1(x,BTSScore_dummy);
 [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                            = systemOutput(x,RBTSScore);
+                            = determinationModel1(x,RBTSScore);
                         
 %% plotting
 figure('Name','singleSignalTwoStates, n=3');

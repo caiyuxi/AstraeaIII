@@ -1,4 +1,4 @@
-function [expectedScoreSt,expectedScoreSf, PrTrueAsMajority] = ExpectedScore_singleSignal(PrT1,PrStT1,PrStT2,PrTrue,n)
+function [expectedScoreSt,expectedScoreSf, PrTrueAsMajority,PrFalseAsMajority] = ExpectedScore_singleSignal(PrT1,PrStT1,PrStT2,PrTrue,n)
 % two states (T1, T2), chances for a voter to start in each state is as following
 PrT1 = PrT1; % Pr(State = T1)
 PrT2 = 1-PrT1; % Pr(State = T2)

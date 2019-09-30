@@ -7,9 +7,9 @@ RBTSScore = RBTSScore(x,y);
 RBTSScore_mean = RBTSScore_mean(x,y);
 
 [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
-                            = systemOutput(x,RBTSScore_mean);
+                            = determinationModel1(x,RBTSScore_mean);
 [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                            = systemOutput(x,RBTSScore);
+                            = determinationModel1(x,RBTSScore);
 %% case 2: single minority with n=100
 clearvars;
 x=zeros(1,100);
@@ -21,9 +21,9 @@ RBTSScore = RBTSScore(x,y);
 RBTSScore_mean = RBTSScore_mean(x,y);
 
 [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
-                            = systemOutput(x,RBTSScore_mean);
+                            = determinationModel1(x,RBTSScore_mean);
 [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                            = systemOutput(x,RBTSScore);
+                            = determinationModel1(x,RBTSScore);
                         
 %% case 3: 10 minority with n=100
 clearvars;
@@ -41,9 +41,9 @@ RBTSScore = RBTSScore(x,y);
 RBTSScore_mean = RBTSScore_mean(x,y);
 
 [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
-                            = systemOutput(x,RBTSScore_mean);
+                            = determinationModel1(x,RBTSScore_mean);
 [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                            = systemOutput(x,RBTSScore);
+                            = determinationModel1(x,RBTSScore);
         
 %% case 4: n=100, 100 random cases, find number of agreement among majority, RBTS and improved RBTS
 clearvars;
@@ -63,9 +63,9 @@ for i = 1:100
     RBTSScore_mean = RBTSScore_mean(x,y);
 
     [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
-                                = systemOutput(x,RBTSScore_mean);
+                                = determinationModel1(x,RBTSScore_mean);
     [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                                = systemOutput(x,RBTSScore);
+                                = determinationModel1(x,RBTSScore);
     if (majOutput == RBTSScoreOutput && majOutput == RBTSMeanScoreOutput) 
         AllAgreeCount = AllAgreeCount+1;
     end
@@ -106,9 +106,9 @@ for i = 1:100
     RBTSScore_mean = RBTSScore_mean(x,y);
 
     [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
-                                = systemOutput(x,RBTSScore_mean);
+                                = determinationModel1(x,RBTSScore_mean);
     [RBTSResult,majOutput,RBTSScoreOutput,RBTStAverage,RBTSfAverage] ...
-                                = systemOutput(x,RBTSScore);
+                                = determinationModel1(x,RBTSScore);
     if (majOutput == RBTSScoreOutput && majOutput == RBTSMeanScoreOutput) 
         AllAgreeCount = AllAgreeCount+1;
     end
