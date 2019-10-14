@@ -76,22 +76,22 @@ cleanPlot('Expected score for True-voting and False-voting agents');
 subplot(2,1,1);
 hold on;
 plot(PrTrue,expectedScoreSt, 'k');
-text(0.6,expectedScoreSt(70),'expected score of True-voting voter','FontSize', 10);
+text(0.6,expectedScoreSt(70),'expected score of T-voter','FontSize', 10);
 plot(PrTrue,expectedScoreSf, 'k');
-text(0.6,expectedScoreSf(70),'expected score of False-voting voter','FontSize', 10);
-xlabel("probability of T to be received", 'FontSize', 13);
-ylabel("u, expected score",'FontSize', 13);
+text(0.6,expectedScoreSf(70),'expected score of F-voter','FontSize', 10);
+xlabel("prob. to vote for T", 'FontSize', 13);
+ylabel("expected RBTS score",'FontSize', 13);
 grid on;
 
 subplot(2,1,2);
 hold on;
 plot(PrTrue,PrTrueAsMajority, 'k');
-text(0.8,PrTrueAsMajority(70)+0.05,'true as majority','FontSize', 10);
+text(0.7,PrTrueAsMajority(70)+0.05,'T as majority','FontSize', 10);
 
 plot(PrTrue,PrFalseAsMajority, 'k');
-text(0.8,PrFalseAsMajority(70)+0.05,'false as majority','FontSize', 10);
-xlabel("probability of T to be received",'FontSize', 13);
-ylabel("probability", 'FontSize', 13);
+text(0.7,PrFalseAsMajority(70)+0.05,'F as majority','FontSize', 10);
+xlabel("prob. to vote for T", 'FontSize', 13);
+ylabel("prob. to be output", 'FontSize', 13);
 grid on;
 %% expected payoff
 % assume max reward and max penalty are both 1
@@ -150,5 +150,43 @@ text(0.8,PrTrueAsMajority(7)+0.05,'true as majority','FontSize', 10);
 plot(p,PrFalseAsMajority, 'k');
 text(0.8,PrFalseAsMajority(7)+0.05,'false as majority','FontSize', 10);
 xlabel("ratio of votes controlled by adversary", 'FontSize', 13);
+ylabel("probability", 'FontSize', 13);
+grid on;
+%% lazy scenario
+clearvars;
+PrT1 = 0.5; % equal probability of two states
+PrStT1 = 0.3; % first state has a higher belief in true signal
+PrStT2 = 0.2;
+n=30;
+PrTrue = 0.9;
+PrTrueAsMajority = [];
+PrFalseAsMajority = [];
+
+p = 0:0.05:1;
+for i = 1:length(p)
+    [expectedScoreSt(i),expectedScoreSf(i), PrTrueAsMajority(i),PrFalseAsMajority(i)] = ...
+            LazyAttack(PrT1,PrStT1,PrStT2,PrTrue,n, p(i));
+end
+cleanPlot('Expected score with lazy voters');
+subplot(2,1,1);
+hold on;
+p=n*p;
+plot(p,expectedScoreSt, 'k');
+text(0.6,expectedScoreSt(7)+0.1,'expected score of True-voting voter','FontSize', 10);
+plot(p,expectedScoreSf, 'k');
+text(0.6,expectedScoreSf(7)+0.1,'expected score of False-voting voter','FontSize', 10);
+
+xlabel("ratio of votes controlled by lazy voters", 'FontSize', 13);
+ylabel("u, expected score", 'FontSize', 13);
+grid on;
+
+subplot(2,1,2);
+hold on;
+plot(p,PrTrueAsMajority, 'k');
+text(0.8,PrTrueAsMajority(7)+0.05,'true as majority','FontSize', 10);
+
+plot(p,PrFalseAsMajority, 'k');
+text(0.8,PrFalseAsMajority(7)+0.05,'false as majority','FontSize', 10);
+xlabel("ratio of votes controlled by lazy voter", 'FontSize', 13);
 ylabel("probability", 'FontSize', 13);
 grid on;
