@@ -155,8 +155,8 @@ grid on;
 %% lazy scenario
 clearvars;
 PrT1 = 0.5; % equal probability of two states
-PrStT1 = 0.3; % first state has a higher belief in true signal
-PrStT2 = 0.2;
+PrStT1 = 0.1; % first state has a higher belief in true signal
+PrStT2 = 0.4;
 n=30;
 PrTrue = 0.9;
 PrTrueAsMajority = [];
@@ -189,4 +189,94 @@ plot(p,PrFalseAsMajority, 'k');
 text(0.8,PrFalseAsMajority(7)+0.05,'false as majority','FontSize', 10);
 xlabel("ratio of votes controlled by lazy voter", 'FontSize', 13);
 ylabel("probability", 'FontSize', 13);
+grid on;
+
+%% multiple source - this is closer to the the system definition but has the same result as the previous one
+clearvars;
+PrT1 = 0.5; % equal probability of two states
+PrStT1 = 0.9; % first state has a higher belief in true signal
+PrStT2 = 0.2;
+n=30;
+PrTrueAsMajority = [];
+PrFalseAsMajority = [];
+
+PrSr1 = 0.1:0.01:0.9;
+for i = 1:length(PrSr1)
+    [expectedScoreSt(i),expectedScoreSf(i), PrTrueAsMajority(i),PrFalseAsMajority(i)] = ...
+            ExpectedScore_singleSignal(PrT1,PrStT1,PrStT2,PrSr1(i),n);
+end
+
+cleanPlot('Expected score for True-voting and False-voting agents');
+subplot(2,1,1);
+hold on;
+plot(PrSr1,expectedScoreSt, 'k');
+text(0.6,expectedScoreSt(70),'expected score of T-voter','FontSize', 10);
+plot(PrSr1,expectedScoreSf, 'k');
+text(0.6,expectedScoreSf(70),'expected score of F-voter','FontSize', 10);
+xlabel("prob. to vote for T", 'FontSize', 13);
+ylabel("expected RBTS score",'FontSize', 13);
+grid on;
+
+subplot(2,1,2);
+hold on;
+plot(PrSr1,PrTrueAsMajority, 'k');
+text(0.7,PrTrueAsMajority(70)+0.05,'T as majority','FontSize', 10);
+
+plot(PrSr1,PrFalseAsMajority, 'k');
+text(0.7,PrFalseAsMajority(70)+0.05,'F as majority','FontSize', 10);
+xlabel("prob. to vote for T", 'FontSize', 13);
+ylabel("prob. to be output", 'FontSize', 13);
+grid on;
+
+%% multiple signals
+clearvars;
+PrT1 = 0.5; % equal probability of two states
+PrStT1 = 0.6; % first state has a higher belief in true signal
+PrStT2 = 0.8;
+n=30;
+PrTrueAsMajority = [];
+PrFalseAsMajority = [];
+
+PrTrue = 0.1:0.01:0.9;
+for i = 1:length(PrTrue)
+    scoreDistribution = ...
+            ExpectedScore_3Signal(PrT1,PrStT1,PrStT2,PrTrue(i),n);
+    expectedScoreS3t(i) = scoreDistribution(1);
+    expectedScoreS2t1f(i) = scoreDistribution(2);
+    expectedScoreS1t2f(i) =  scoreDistribution(3);
+    expectedScoreS3f(i) =  scoreDistribution(4); 
+    PrTrueAsMajority(i) = scoreDistribution(5);
+    PrFalseAsMajority(i) = scoreDistribution(6);
+    Taverage(i) = scoreDistribution(7);
+    Faverage(i) = scoreDistribution(8);
+end
+
+cleanPlot('Expected score for True-voting and False-voting agents');
+subplot(2,1,1);
+hold on;
+plot(PrTrue,expectedScoreS3t, 'k');
+text(0.6,expectedScoreS3t(70),'expected score of 3t T-voter','FontSize', 10);
+plot(PrTrue,expectedScoreS2t1f, 'k');
+text(0.6,expectedScoreS2t1f(70),'expected score of 2t1f F-voter','FontSize', 10);
+plot(PrTrue,expectedScoreS1t2f, 'k');
+text(0.6,expectedScoreS1t2f(70),'expected score of 1t2f F-voter','FontSize', 10);
+plot(PrTrue,expectedScoreS3f, 'k');
+text(0.6,expectedScoreS3f(70),'expected score of 3f F-voter','FontSize', 10);
+plot(PrTrue,Faverage, 'b');
+text(0.6,Faverage(70),'expected average score of F-voter','FontSize', 10);
+plot(PrTrue,Taverage, 'r');
+text(0.6,Taverage(70),'expected average score of T-voter','FontSize', 10);
+xlabel("prob. to vote for T", 'FontSize', 13);
+ylabel("expected RBTS score",'FontSize', 13);
+grid on;
+
+subplot(2,1,2);
+hold on;
+plot(PrTrue,PrTrueAsMajority, 'k');
+text(0.7,PrTrueAsMajority(70)+0.05,'T as majority','FontSize', 10);
+
+plot(PrTrue,PrFalseAsMajority, 'k');
+text(0.7,PrFalseAsMajority(70)+0.05,'F as majority','FontSize', 10);
+xlabel("prob. to vote for T", 'FontSize', 13);
+ylabel("prob. to be output", 'FontSize', 13);
 grid on;
