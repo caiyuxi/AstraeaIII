@@ -83,4 +83,41 @@ ylabel("Pr(True)",'FontSize', 13);
 xlabel("Adversary",'FontSize', 13);
 zlabel("Expected Score",'FontSize', 13);
 
-%%
+%% figure 3: majority voting and herding 
+clearvars;
+PrT1 = 0.5; % equal probability of two states to start with
+n=50; % 30 voters
+
+PrSr1 = 0.05:0.01:0.95; % actual real world signal probability
+PrStT1 = 0.05:0.01:0.95; % state 1 true-signal probability
+for i = 1:length(PrSr1)
+    PrStT2 = PrSr1(i);
+    for j = 1:length(PrStT1)
+        [PrTrueAsMajority_herding(i,j),PrFalseAsMajority_herding(i,j), PrTrueAsMajority(i,j),PrFalseAsMajority(i,j)] = ...
+                MajorityVotingWithExpectation(PrT1,PrStT1(j),PrStT2,PrSr1(i),n);
+    end
+end
+
+
+cleanPlot3d('Expected score for True-voting and False-voting agents');
+true = surf(PrStT1,PrSr1,PrTrueAsMajority_herding, 'facecolor', [0.7 0.7 0.7], 'EdgeColor', 'none');
+hold on;
+false = surf(PrStT1,PrSr1,PrFalseAsMajority_herding, 'facecolor',[0.3 0.3 0.3], 'EdgeColor', 'none');
+set(gcf, 'Renderer', 'opengl');
+legend([false, true], {'Pr(o=False)', 'Pr(o=True)'});
+
+ylabel("Pr(True)",'FontSize', 13);
+xlabel("Pr(True|T=1)",'FontSize', 13);
+zlabel("Probability",'FontSize', 13);
+
+%% figure 4: majority voting without herding 
+cleanPlot3d('Expected score for True-voting and False-voting agents');
+true = surf(PrStT1,PrSr1,PrTrueAsMajority, 'facecolor', [0.7 0.7 0.7], 'EdgeColor', 'none');
+hold on;
+false = surf(PrStT1,PrSr1,PrFalseAsMajority, 'facecolor',[0.3 0.3 0.3], 'EdgeColor', 'none');
+set(gcf, 'Renderer', 'opengl');
+legend([false, true], {'Pr(o=False)', 'Pr(o=True)'});
+
+ylabel("Pr(True)",'FontSize', 13);
+xlabel("Pr(True|T=1)",'FontSize', 13);
+zlabel("Probability",'FontSize', 13);
