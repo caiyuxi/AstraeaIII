@@ -16,7 +16,7 @@ RBTSScore_twoMeans = RBTSScore_twoMeans(x,y);
 [RBTSMeanResult,~,RBTSMeanScoreOutput,RBTSMeantAverage,RBTSMeanfAverage] ...
                             = determinationModel1(x,RBTSScore_mean);
 [RBTS2MeanResult,majOutput,RBTS2MeanScoreOutput,RBTS2MeantAverage,RBTS2MeanfAverage] ...
-                            = determinationModel1(x,RBTSScore_twoMeans);        
+                            = determinationModel1(x,RBTSScore_twoMeans);  
 %% 1 adversary, n = 100
 clearvars;
 x=zeros(1,100);

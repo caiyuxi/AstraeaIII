@@ -164,5 +164,7 @@ plot(s, smooth(multipleReports), 'k-','LineWidth', 1.5);
 hl = legend('$\alpha=0.5, \beta=1$', '$\alpha=0.5, \beta=0.5$','$\alpha=0.5, \beta=0.1$','$\alpha=1, \beta=0.5$','$\alpha=0.9, \beta=0.1$', 'Multiple reports', 'FontSize', 9);
 set(hl ,'Interpreter','latex');
 
-xlabel("s_i", 'FontSize', 13);
-ylabel("expected payoff",'FontSize', 13);
+x = xlabel("$s_i$", 'FontSize', 13);
+set(x ,'Interpreter','latex');
+y = ylabel("expected payoff",'FontSize', 13);
+set(y ,'Interpreter','latex');

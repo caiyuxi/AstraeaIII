@@ -12,7 +12,7 @@ PrTrue = 0.2; % each agents has a probability of 0.7 to receive a true signal
 
 n = 3:50;
 [expectedScoreSt,expectedScoreSf, PrTrueAsMajority] = ...
-        ExpectedScore_singleSignal(PrT1,PrStT1,PrStT2,PrTrue,n);
+        ExpectedScore_notMaj(PrT1,PrStT1,PrStT2,PrTrue,n);
 
 figure('Name','Expected score for True-voting and False-voting agents');
 subplot(2,1,1);
@@ -41,7 +41,7 @@ PrTrue = 0.51; % each agents has a probability of 0.7 to receive a true signal
 
 n = 3:50;
 [expectedScoreSt,expectedScoreSf, PrTrueAsMajority] = ...
-        ExpectedScore_singleSignal(PrT1,PrStT1,PrStT2,PrTrue,n);
+        ExpectedScore_notMaj(PrT1,PrStT1,PrStT2,PrTrue,n);
 
 figure('Name','Expected score for True-voting and False-voting agents');
 subplot(2,1,1);
@@ -69,15 +69,15 @@ n=20;
 PrTrue = 0.1:0.01:0.9;
 for i = 1:length(PrTrue)
     [expectedScoreSt(i),expectedScoreSf(i), PrTrueAsMajority(i),PrFalseAsMajority(i)] = ...
-            ExpectedScore_singleSignal(PrT1,PrStT1,PrStT2,PrTrue(i),n);
+            ExpectedScore_notMaj(PrT1,PrStT1,PrStT2,PrTrue(i),n);
 end
 
 cleanPlot('Expected score for True-voting and False-voting agents');
 subplot(2,1,1);
 hold on;
-plot(PrTrue,expectedScoreSt, 'k');
+plot(PrTrue,expectedScoreSt, 'r');
 text(0.6,expectedScoreSt(70),'expected score of T-voter','FontSize', 10);
-plot(PrTrue,expectedScoreSf, 'k');
+plot(PrTrue,expectedScoreSf, 'b');
 text(0.6,expectedScoreSf(70),'expected score of F-voter','FontSize', 10);
 xlabel("prob. to vote for T", 'FontSize', 13);
 ylabel("expected RBTS score",'FontSize', 13);
@@ -106,6 +106,9 @@ for i = 1:length(PrTrue)
     elseif expectedScoreSt(i)<expectedScoreSf(i)
         tExpectedPayoff(i) = p;
         fExpectedPayoff(i) = r;
+    else
+        tExpectedPayoff(i) = 0;
+        fExpectedPayoff(i) = 0;
     end
 end
 cleanPlot('Expected payoff for True-voting and False-voting agents');
@@ -120,22 +123,22 @@ ylabel("expected payoff",'FontSize', 13);
 %% adversarial scenario
 clearvars;
 PrT1 = 0.5; % equal probability of two states
-PrStT1 = 0.1; % first state has a higher belief in true signal
-PrStT2 = 0.2;
+PrStT1 = 0.9; % first state has a higher belief in true signal
+PrStT2 = 0.1;
 n=30;
-PrTrue = 0.9;
+PrTrue = 0.8;
 
 p = 0:0.1:1;
 for i = 1:length(p)
     [expectedScoreSt(i),expectedScoreSf(i), PrTrueAsMajority(i),PrFalseAsMajority(i)] = ...
-            AdversarialAttack(PrT1,PrStT1,PrStT2,PrTrue,n, p(i));
+            ExpectedScore_adversarial(PrT1,PrStT1,PrStT2,PrTrue,n, p(i));
 end
 cleanPlot('Expected score under adversarial attacks');
 subplot(2,1,1);
 hold on;
-plot(p,expectedScoreSt, 'k');
+plot(p,expectedScoreSt, 'r');
 text(0.6,expectedScoreSt(7)+0.1,'expected score of True-voting voter','FontSize', 10);
-plot(p,expectedScoreSf, 'k');
+plot(p,expectedScoreSf, 'b');
 text(0.6,expectedScoreSf(7)+0.1,'expected score of False-voting voter','FontSize', 10);
 
 xlabel("ratio of votes controlled by adversary", 'FontSize', 13);
@@ -156,9 +159,9 @@ grid on;
 clearvars;
 PrT1 = 0.5; % equal probability of two states
 PrStT1 = 0.1; % first state has a higher belief in true signal
-PrStT2 = 0.4;
+PrStT2 = 0.8;
 n=30;
-PrTrue = 0.9;
+PrTrue = 0.4;
 PrTrueAsMajority = [];
 PrFalseAsMajority = [];
 
@@ -231,9 +234,9 @@ grid on;
 %% multiple signals
 clearvars;
 PrT1 = 0.5; % equal probability of two states
-PrStT1 = 0.6; % first state has a higher belief in true signal
-PrStT2 = 0.8;
-n=30;
+PrStT1 = 0.4; % first state has a higher belief in true signal
+PrStT2 = 0.1;
+n=1000;
 PrTrueAsMajority = [];
 PrFalseAsMajority = [];
 
@@ -255,13 +258,13 @@ cleanPlot('Expected score for True-voting and False-voting agents');
 subplot(2,1,1);
 hold on;
 plot(PrTrue,expectedScoreS3t, 'k');
-text(0.6,expectedScoreS3t(70),'expected score of 3t T-voter','FontSize', 10);
+%text(0.6,expectedScoreS3t(70),'expected score of 3t T-voter','FontSize', 10);
 plot(PrTrue,expectedScoreS2t1f, 'k');
-text(0.6,expectedScoreS2t1f(70),'expected score of 2t1f F-voter','FontSize', 10);
+%text(0.6,expectedScoreS2t1f(70),'expected score of 2t1f F-voter','FontSize', 10);
 plot(PrTrue,expectedScoreS1t2f, 'k');
-text(0.6,expectedScoreS1t2f(70),'expected score of 1t2f F-voter','FontSize', 10);
+%text(0.6,expectedScoreS1t2f(70),'expected score of 1t2f F-voter','FontSize', 10);
 plot(PrTrue,expectedScoreS3f, 'k');
-text(0.6,expectedScoreS3f(70),'expected score of 3f F-voter','FontSize', 10);
+%text(0.6,expectedScoreS3f(70),'expected score of 3f F-voter','FontSize', 10);
 plot(PrTrue,Faverage, 'b');
 text(0.6,Faverage(70),'expected average score of F-voter','FontSize', 10);
 plot(PrTrue,Taverage, 'r');
